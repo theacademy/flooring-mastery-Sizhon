@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1,Simon,KY,6.0,Carpet,200.0,2.25,2.10,450.00,420.00,52.20,922.20
