@@ -1,7 +1,5 @@
 import com.mcp.FlooringMastery.Exceptions.OrderDataPersistenceException;
-import com.mcp.FlooringMastery.dao.DAOType;
-import com.mcp.FlooringMastery.dao.OrdersDAOFileImpl;
-import com.mcp.FlooringMastery.dao.ProductsDAOImpl;
+import com.mcp.FlooringMastery.dao.*;
 import com.mcp.FlooringMastery.model.Order;
 import com.mcp.FlooringMastery.model.Product;
 import com.mcp.FlooringMastery.model.Tax;
@@ -23,6 +21,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class OrderServiceTest {
+    @Mock
+    private OrdersDAO ordersDAO;
+
+    private ProductsDAO productsDAO;
+
+    private TaxesDAO taxesDAO;
+
     @InjectMocks
     private ServiceImpl service;
 
@@ -33,8 +38,11 @@ class OrderServiceTest {
     }
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         MockitoAnnotations.openMocks(this);
+        productsDAO = new ProductsDAOImpl();
+        taxesDAO = new TaxesDAOImpl();
+        service = new ServiceImpl(ordersDAO, productsDAO, taxesDAO);
     }
 
     @Test
