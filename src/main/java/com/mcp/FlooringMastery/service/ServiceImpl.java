@@ -4,6 +4,7 @@ import com.mcp.FlooringMastery.Exceptions.OrderDataPersistenceException;
 import com.mcp.FlooringMastery.dao.*;
 import com.mcp.FlooringMastery.model.Order;
 import com.mcp.FlooringMastery.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -14,11 +15,15 @@ import java.util.HashMap;
 
 @Component
 public class ServiceImpl implements Service {
-    private final OrdersDAO ordersDAO = new OrdersDAOFileImpl();
-    private final ProductsDAO productsDAO = new ProductsDAOImpl();
-    private final TaxesDAO taxesDAO = new TaxesDAOImpl();
+    private final OrdersDAO ordersDAO;
+    private final ProductsDAO productsDAO;
+    private final TaxesDAO taxesDAO;
 
-    public ServiceImpl() throws IOException {
+    @Autowired
+    public ServiceImpl(OrdersDAO ordersDAO, ProductsDAO productsDAO, TaxesDAO taxesDAO) {
+        this.ordersDAO = ordersDAO;
+        this.productsDAO = productsDAO;
+        this.taxesDAO = taxesDAO;
     }
 
 

@@ -1,6 +1,7 @@
 package com.mcp.FlooringMastery.dao;
 
 import com.mcp.FlooringMastery.model.Tax;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+@Component
 public class TaxesDAOImpl implements TaxesDAO {
     public TaxesDAOImpl() throws IOException {
         importTaxes();

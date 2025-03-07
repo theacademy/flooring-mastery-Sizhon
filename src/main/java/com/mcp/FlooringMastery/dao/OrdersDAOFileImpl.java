@@ -3,6 +3,7 @@ package com.mcp.FlooringMastery.dao;
 import com.mcp.FlooringMastery.Exceptions.OrderDataPersistenceException;
 import com.mcp.FlooringMastery.model.Order;
 import com.mcp.FlooringMastery.model.Product;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Scanner;
 
+@Component
 public class OrdersDAOFileImpl implements OrdersDAO {
     HashMap<Integer, Order> orders = new HashMap<>();
     Integer orderNumber = 0;

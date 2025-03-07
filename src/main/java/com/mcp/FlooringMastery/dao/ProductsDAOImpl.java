@@ -1,6 +1,7 @@
 package com.mcp.FlooringMastery.dao;
 
 import com.mcp.FlooringMastery.model.Product;
+import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Scanner;
 
+@Component
 public class ProductsDAOImpl implements ProductsDAO {
     public ProductsDAOImpl() throws IOException {
         importProducts();
