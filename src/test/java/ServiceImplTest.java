@@ -57,4 +57,32 @@ class OrderServiceTest {
         Object result = service.getOrdersFrom(date);
         assertNotNull(result);
     }
+
+    @Test
+    void testCalculateMaterialCost() {
+        BigDecimal area = new BigDecimal("100");
+        BigDecimal costPerSquareFoot = new BigDecimal("5.15");
+        BigDecimal result = service.calculateMaterialCost(area, costPerSquareFoot);
+        assertNotNull(result);
+        assertEquals(new BigDecimal("515.00"), result);
+    }
+
+    @Test
+    void testCalculateLaborCost() {
+        BigDecimal area = new BigDecimal("100");
+        BigDecimal laborCostPerSquareFoot = new BigDecimal("4.75");
+        BigDecimal result = service.calculateLaborCost(area, laborCostPerSquareFoot);
+        assertNotNull(result);
+        assertEquals(new BigDecimal("475.00"), result);
+    }
+
+    @Test
+    void testCalculateTax() {
+        BigDecimal materialCost = new BigDecimal("515.00");
+        BigDecimal laborCost = new BigDecimal("475.00");
+        BigDecimal taxRate = new BigDecimal("6.75");
+        BigDecimal result = service.calculateTax(materialCost, laborCost, taxRate);
+        assertNotNull(result);
+        assertEquals(new BigDecimal("66.83"), result);
+    }
 }

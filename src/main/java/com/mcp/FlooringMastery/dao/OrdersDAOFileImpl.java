@@ -6,6 +6,9 @@ import com.mcp.FlooringMastery.model.Product;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -35,7 +38,7 @@ public class OrdersDAOFileImpl implements OrdersDAO {
     private HashMap<Integer, Order> readFileFromDateAsHashMap(LocalDate date) {
         HashMap<Integer, Order> map = new HashMap<>();
         orderNumber = 0;
-        try (Scanner scan = new Scanner(new FileReader("Orders_%s.txt"
+        try (Scanner scan = new Scanner(new FileReader("./Orders/Orders_%s.txt"
                      .formatted(date.format(DateTimeFormatter.ofPattern("MMddyyyy")))))) {
              String header = scan.nextLine();
              while (scan.hasNextLine()) {
@@ -110,7 +113,9 @@ public class OrdersDAOFileImpl implements OrdersDAO {
     }
 
     private void writeToFile(LocalDate date, HashMap<Integer, Order> orders) throws IOException {
-        PrintWriter out = new PrintWriter(new FileWriter("Orders_%s.txt".
+        Path directoryPath = Paths.get("./Orders");
+        if (!Files.exists(directoryPath)) Files.createDirectories(directoryPath);
+        PrintWriter out = new PrintWriter(new FileWriter("./Orders/Orders_%s.txt".
                 formatted(date.format(DateTimeFormatter.ofPattern("MMddyyyy")))));
         out.println("OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total");
         for (Order order : orders.values()) {

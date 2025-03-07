@@ -4,12 +4,15 @@ import com.mcp.FlooringMastery.model.Tax;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class TaxesDAOImpl implements TaxesDAO {
-    public TaxesDAOImpl() {
+    public TaxesDAOImpl() throws IOException {
         importTaxes();
     }
 
@@ -34,10 +37,12 @@ public class TaxesDAOImpl implements TaxesDAO {
      *
      */
     @Override
-    public void importTaxes() {
+    public void importTaxes() throws IOException {
         //String cwd = System.getProperty("user.dir");
         //System.out.println("Current working directory: " + cwd);
-        try (Scanner scan = new Scanner(new FileReader("Taxes.txt"))){
+        Path directoryPath = Paths.get("./Data");
+        if (!Files.exists(directoryPath)) Files.createDirectories(directoryPath);
+        try (Scanner scan = new Scanner(new FileReader("./Data/Taxes.txt"))){
             String header = scan.nextLine();
             while (scan.hasNextLine()) {
                 String[] taxData = scan.nextLine().split(",");
@@ -48,7 +53,7 @@ public class TaxesDAOImpl implements TaxesDAO {
                 taxes.put(tax.getStateCode(), tax);
         }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         }
     }
 }

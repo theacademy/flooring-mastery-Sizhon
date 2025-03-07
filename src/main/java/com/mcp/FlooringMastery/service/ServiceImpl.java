@@ -14,9 +14,13 @@ import java.util.HashMap;
 
 @Component
 public class ServiceImpl implements Service {
-    OrdersDAO ordersDAO = new OrdersDAOFileImpl();
-    ProductsDAO productsDAO = new ProductsDAOImpl();
-    TaxesDAO taxesDAO = new TaxesDAOImpl();
+    private final OrdersDAO ordersDAO = new OrdersDAOFileImpl();
+    private final ProductsDAO productsDAO = new ProductsDAOImpl();
+    private final TaxesDAO taxesDAO = new TaxesDAOImpl();
+
+    public ServiceImpl() throws IOException {
+    }
+
 
     /**
      * @param <K>
@@ -116,7 +120,10 @@ public class ServiceImpl implements Service {
      */
     @Override
     public BigDecimal calculateTax(BigDecimal materialCost, BigDecimal laborCost, BigDecimal taxRate) {
-        return (materialCost.add(laborCost)).multiply(taxRate.divide(new BigDecimal("100"), RoundingMode.FLOOR));
+        taxRate = taxRate.setScale(10, RoundingMode.HALF_UP);
+        return (materialCost.add(laborCost))
+                .multiply(taxRate.divide(new BigDecimal("100"), RoundingMode.HALF_UP))
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
     /**

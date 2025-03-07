@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
@@ -19,7 +20,7 @@ class ProductsDAOImplTest {
     }
 
     @BeforeEach
-    void setUpEach() {
+    void setUpEach() throws IOException {
         productsDAO = new ProductsDAOImpl();
     }
 

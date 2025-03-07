@@ -4,12 +4,16 @@ import com.mcp.FlooringMastery.model.Product;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class ProductsDAOImpl implements ProductsDAO {
-    public ProductsDAOImpl() {
+    public ProductsDAOImpl() throws IOException {
         importProducts();
     }
 
@@ -34,8 +38,10 @@ public class ProductsDAOImpl implements ProductsDAO {
      *
      */
     @Override
-    public void importProducts() {
-        try (Scanner scan = new Scanner(new FileReader("Products.txt"))){
+    public void importProducts() throws IOException {
+        Path directoryPath = Paths.get("./Data");
+        if (!Files.exists(directoryPath)) Files.createDirectories(directoryPath);
+        try (Scanner scan = new Scanner(new FileReader("./Data/Products.txt"))){
             String header = scan.nextLine();
             while (scan.hasNextLine()) {
                 String[] productData = scan.nextLine().split(",");

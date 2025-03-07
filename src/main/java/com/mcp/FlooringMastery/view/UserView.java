@@ -101,13 +101,15 @@ public class UserView {
     }
 
     public LocalDate datePrompt() {
-        String dateString = io.readString("Please enter date in the format of MM/dd/yyyy:");
+        String dateString = io.readString("Please enter date(cannot be in the past) in the format of MM/dd/yyyy:");
         if (dateString.isEmpty()) return LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         try {
-            return LocalDate.parse(dateString, formatter);
+            LocalDate date = LocalDate.parse(dateString, formatter);
+            Boolean isValid = Validators.isValidDate(date);
+            return isValid ? date : datePrompt();
         } catch (DateTimeParseException e) {
-            io.print("Invalid date format. Please enter the date in the format of MM/dd/yyyy.");
+            io.print("Invalid date format.");
             return datePrompt();
 }
     }

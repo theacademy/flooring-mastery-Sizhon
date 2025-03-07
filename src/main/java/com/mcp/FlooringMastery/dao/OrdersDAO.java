@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public interface OrdersDAO {
-    public HashMap<Integer, Order> getAllOrders();
-    public HashMap<Integer, Order> getGetOrdersFrom(LocalDate date);
-    public void addOrder(Order order, LocalDate date) throws OrderDataPersistenceException, IOException;
-    public Order getOrder(int orderNumber, LocalDate date);
+    HashMap<Integer, Order> getAllOrders();
+    HashMap<Integer, Order> getGetOrdersFrom(LocalDate date);
+    void addOrder(Order order, LocalDate date) throws OrderDataPersistenceException, IOException;
+    Order getOrder(int orderNumber, LocalDate date);
     void importOrders() throws OrderDataPersistenceException;
     void exportOrders(HashMap<Integer, Order> orders, LocalDate date) throws OrderDataPersistenceException, IOException;
     void exportOrders(LocalDate date) throws OrderDataPersistenceException, IOException;

@@ -65,10 +65,12 @@ public class FlooringMasteryController {
                     if (makeOrder) {
                         try {
                             service.addOrder(order, dateToAdd);
+                            view.orderAdded();
                         } catch (OrderDataPersistenceException | IOException e) {
+                            e.printStackTrace();
                             view.orderAddError();
                         }
-                        view.orderAdded();
+
                     };
                     break;
                 case EDIT_ORDER:
